@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QSet>
 #include <QString>
-#include <QtConcurrent/QtConcurrent>
+#include <atomic>
 
 class Counter : public QObject
 {
@@ -33,7 +33,7 @@ private:
     int number_lines;
     int number_words;
     QSet<QString> dictionary;
-    QFuture<void> future;
+    std::atomic<bool> is_cancel;
 
     void process(const QString& line);
 };

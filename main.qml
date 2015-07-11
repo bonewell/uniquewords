@@ -47,6 +47,7 @@ ApplicationWindow {
         onWordsChanged: console.info("Words: ", number)
         onWordAdded: console.info("Unique word: ", word)
         onFinished: {
+            console.debug("FINISHED");
             result.visible = true;
             process.visible = false;
         }

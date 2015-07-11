@@ -1,33 +1,39 @@
 #include "counter.h"
 #include <QtDebug>
 #include <QFile>
+#include <QtConcurrent/QtConcurrent>
 
-Counter::Counter(QObject *parent) : QObject(parent), number_lines(0), number_words(0)
+Counter::Counter(QObject *parent)
+    : QObject(parent),
+      number_lines(0),
+      number_words(0),
+      is_cancel(false)
 {
 
 }
 
 void Counter::run(const QString& filename) {
-    future = QtConcurrent::run(this, &Counter::handle, filename);
-    future.waitForFinished();
-    if (future.isFinished()) {
-        emit finished();
-    }
+    is_cancel = false;
+    number_lines = number_words = 0;
+    dictionary.clear();
+    QtConcurrent::run(this, &Counter::handle, filename);
 }
 
 void Counter::stop() {
-    future.cancel();
+    qDebug() << "CANCEL";
+    is_cancel = true;
 }
 
 void Counter::handle(const QString& filename) {
     QFile file(filename);
     if (file.open(QFile::ReadOnly)) {
-        while (!file.atEnd()) {
+        while (!file.atEnd() && !is_cancel) {
             auto line = QString(file.readLine());
             emit linesChanged(++number_lines);
             process(line.toLower());
         }
         file.close();
+        if (!is_cancel) emit finished();
     } else {
         qCritical() << QObject::tr("Could not open file ") << filename;
     }
