@@ -1,42 +1,54 @@
-import QtQuick 2.4
 import QtQuick.Controls 1.3
-import QtQuick.Window 2.2
-import QtQuick.Dialogs 1.2
+import Counter 1.0
 
 ApplicationWindow {
-    title: qsTr("Hello World")
+    title: qsTr("Unique words")
     width: 640
     height: 480
     visible: true
 
-    menuBar: MenuBar {
-        Menu {
-            title: qsTr("&File")
-            MenuItem {
-                text: qsTr("&Open")
-                onTriggered: messageDialog.show(qsTr("Open action triggered"));
-            }
-            MenuItem {
-                text: qsTr("E&xit")
-                onTriggered: Qt.quit();
-            }
+    SelectFileForm {
+        id: selectFile
+        anchors.fill: parent
+        next.onClicked: {
+            process.visible = true;
+            visible = false;
+            counter.run("build_and_run_steps.txt");
+        }
+        exit.onClicked: Qt.quit();
+    }
+
+    ProcessForm {
+        id: process
+        anchors.fill: parent
+        visible: false
+        back.onClicked: {
+            counter.stop();
+            selectFile.visible = true;
+            visible = false;
+        }
+
+        exit.onClicked: {
+            counter.stop();
+            Qt.quit();
         }
     }
 
-    MainForm {
+    ResultForm {
+        id: result
         anchors.fill: parent
-        button1.onClicked: messageDialog.show(qsTr("Button 1 pressed"))
-        button2.onClicked: messageDialog.show(qsTr("Button 2 pressed"))
-        button3.onClicked: messageDialog.show(qsTr("Button 3 pressed"))
+        visible: false
+        exit.onClicked: Qt.quit();
     }
 
-    MessageDialog {
-        id: messageDialog
-        title: qsTr("May I have your attention, please?")
-
-        function show(caption) {
-            messageDialog.text = caption;
-            messageDialog.open();
+    Counter {
+        id: counter
+        onLinesChanged: console.info("Lines: ", number)
+        onWordsChanged: console.info("Words: ", number)
+        onWordAdded: console.info("Unique word: ", word)
+        onFinished: {
+            result.visible = true;
+            process.visible = false;
         }
     }
 }
