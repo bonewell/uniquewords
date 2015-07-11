@@ -25,7 +25,7 @@ void Counter::stop() {
 }
 
 void Counter::handle(const QString& filename) {
-    QFile file(filename);
+    QFile file(QUrl(filename).toLocalFile());
     if (file.open(QFile::ReadOnly)) {
         while (!file.atEnd() && !is_cancel) {
             auto line = QString(file.readLine());

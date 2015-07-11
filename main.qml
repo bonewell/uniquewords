@@ -13,15 +13,20 @@ ApplicationWindow {
         next.onClicked: {
             process.visible = true;
             visible = false;
-            counter.run("build_and_run_steps.txt");
+            counter.run(url);
         }
         exit.onClicked: Qt.quit();
+        select.onClicked: files.visible = true
+        url: files.fileUrl
     }
 
     ProcessForm {
         id: process
         anchors.fill: parent
         visible: false
+        lines: counter.lines
+        words: counter.words
+
         back.onClicked: {
             counter.stop();
             selectFile.visible = true;
@@ -43,11 +48,11 @@ ApplicationWindow {
 
     Counter {
         id: counter
-        onLinesChanged: console.info("Lines: ", number)
-        onWordsChanged: console.info("Words: ", number)
-        onWordAdded: console.info("Unique word: ", word)
+        onWordAdded: process.dictionary.append({name: word})
         onFinished: {
             console.debug("FINISHED");
+            result.lines = lines
+            result.words = words
             result.visible = true;
             process.visible = false;
         }
