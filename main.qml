@@ -1,7 +1,9 @@
+import QtQuick 2.4
 import QtQuick.Controls 1.3
 import Counter 1.0
 
 ApplicationWindow {
+    id: appWindow
     title: qsTr("Unique words")
     width: 640
     height: 480
@@ -26,6 +28,7 @@ ApplicationWindow {
         visible: false
         lines: counter.lines
         words: counter.words
+        uniqueWord: counter.uniqueWord
 
         back.onClicked: {
             counter.stop();
@@ -48,7 +51,7 @@ ApplicationWindow {
 
     Counter {
         id: counter
-        onWordAdded: process.dictionary.append({name: word})
+        discrete: 5
         onFinished: {
             console.debug("FINISHED");
             result.lines = lines
