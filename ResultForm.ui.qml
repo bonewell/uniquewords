@@ -10,6 +10,7 @@ Item {
     property alias exit: exit
     property alias lines: lines.text
     property alias words: words.text
+    property alias dictianory: unique_list.model
 
     Button {
         id: exit

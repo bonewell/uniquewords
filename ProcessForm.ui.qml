@@ -11,7 +11,7 @@ Item {
     property alias back: back
     property alias lines: lines.text
     property alias words: words.text
-    property alias dictionary : dictionary
+    property alias uniqueWord: unique_word.text
 
     Button {
         id: back
@@ -47,37 +47,11 @@ Item {
         font.pointSize: 20
     }
 
-    ListView {
-        id: unique_list
-        x: 453
-        width: 200
-        anchors.bottom: back.top
-        anchors.bottomMargin: 10
-        anchors.top: scan.bottom
-        anchors.topMargin: 10
-        anchors.right: parent.right
-        anchors.rightMargin: 10
-        delegate: Item {
-            height: 15
-            Text {
-                text: name
-                anchors.verticalCenter: parent.verticalCenter
-                font.bold: true
-                font.pixelSize: 10
-            }
-        }
-        model: dictionary
-    }
-
-    ListModel {
-        id: dictionary
-    }
-
     Label {
         id: lines_label
         text: qsTr("Lines:")
         anchors.left: parent.left
-        font.pointSize: 30
+        font.pointSize: 40
         textFormat: Text.AutoText
         anchors.top: scan.bottom
         anchors.leftMargin: 10
@@ -90,7 +64,7 @@ Item {
         y: 4
         text: qsTr("Unique words:")
         anchors.left: parent.left
-        font.pointSize: 30
+        font.pointSize: 40
         anchors.top: lines_label.bottom
         anchors.leftMargin: 10
         anchors.topMargin: 10
@@ -100,8 +74,8 @@ Item {
         id: words
         x: 333
         text: "0"
-        anchors.right: unique_list.left
-        font.pointSize: 30
+        anchors.right: parent.right
+        font.pointSize: 40
         anchors.top: lines.bottom
         anchors.topMargin: 10
         anchors.rightMargin: 10
@@ -111,11 +85,29 @@ Item {
         id: lines
         x: 337
         text: "0"
-        anchors.right: unique_list.left
-        font.pointSize: 30
+        anchors.right: parent.right
+        font.pointSize: 40
         anchors.top: scan.bottom
         anchors.topMargin: 10
         anchors.rightMargin: 10
+    }
+
+    Label {
+        id: unique_word
+        color: "#d30d0d"
+        text: qsTr("")
+        font.pointSize: 50
+        textFormat: Text.PlainText
+        verticalAlignment: Text.AlignVCenter
+        horizontalAlignment: Text.AlignHCenter
+        anchors.rightMargin: 10
+        anchors.leftMargin: 10
+        anchors.bottomMargin: 10
+        anchors.top: words_label.bottom
+        anchors.right: parent.right
+        anchors.bottom: exit.top
+        anchors.left: parent.left
+        anchors.topMargin: 10
     }
 }
 
