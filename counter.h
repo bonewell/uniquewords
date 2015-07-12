@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QSet>
-#include <QString>
+#include <QStringList>
 #include <atomic>
 
 class Counter : public QObject
@@ -17,11 +17,13 @@ public:
     Q_PROPERTY(int lines READ lines NOTIFY linesChanged)
     Q_PROPERTY(int words READ words NOTIFY wordsChanged)
     Q_PROPERTY(QString uniqueWord READ uniqueWord NOTIFY uniqueWordChanged)
+    Q_PROPERTY(QStringList dict READ dict)
 
     Q_INVOKABLE int discrete() const;
     Q_INVOKABLE int lines() const;
     Q_INVOKABLE int words() const;
     Q_INVOKABLE QString uniqueWord() const;
+    Q_INVOKABLE QStringList dict() const;
 
 signals:
     void discreteChanged();

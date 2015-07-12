@@ -97,3 +97,8 @@ void Counter::setDiscrete(int value)
         emit discreteChanged();
     }
 }
+
+QStringList Counter::dict() const
+{
+    return dictionary.toList();
+}

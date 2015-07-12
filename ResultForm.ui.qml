@@ -10,7 +10,7 @@ Item {
     property alias exit: exit
     property alias lines: lines.text
     property alias words: words.text
-    property alias dictianory: unique_list.model
+    property alias dictionary: unique_list.model
 
     Button {
         id: exit
@@ -77,6 +77,28 @@ Item {
         font.underline: true
         font.bold: true
         font.pointSize: 20
+    }
+
+    GridView {
+        id: unique_list
+        cellWidth: 80
+        cellHeight: 20
+        anchors.rightMargin: 10
+        anchors.leftMargin: 10
+        anchors.bottomMargin: 10
+        anchors.top: words_label.bottom
+        anchors.right: parent.right
+        anchors.bottom: exit.top
+        anchors.left: parent.left
+        anchors.topMargin: 10
+        delegate: Text {
+            text: modelData
+            font.bold: true
+            font.pixelSize: 15
+            elide: Text.ElideRight
+            width: unique_list.cellWidth
+            height: unique_list.cellHeight
+        }
     }
 }
 
