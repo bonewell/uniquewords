@@ -56,6 +56,7 @@ ApplicationWindow {
             console.debug("FINISHED");
             result.lines = lines
             result.words = words
+            result.dictionary = dict
             result.visible = true;
             process.visible = false;
         }
