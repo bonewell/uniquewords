@@ -8,16 +8,16 @@ Item {
     height: 480
 
     property alias exit: exit
-    property alias back: back
+    property alias stop: stop
     property alias lines: lines.text
     property alias words: words.text
     property alias uniqueWord: unique_word.text
 
     Button {
-        id: back
+        id: stop
         x: 210
         y: 435
-        text: qsTr("Back")
+        text: qsTr("Stop")
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 8
         anchors.right: parent.right
