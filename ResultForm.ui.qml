@@ -24,7 +24,7 @@ Item {
 
     Label {
         id: lines_label
-        text: qsTr("Lines:")
+        text: qsTr("Number of lines:")
         anchors.top: summary.bottom
         anchors.topMargin: 10
         anchors.left: parent.left
@@ -35,7 +35,7 @@ Item {
 
     Label {
         id: words_label
-        text: qsTr("Unique words:")
+        text: qsTr("Number of unique words:")
         anchors.top: lines_label.bottom
         anchors.topMargin: 10
         anchors.left: parent.left
@@ -74,7 +74,6 @@ Item {
         anchors.topMargin: 10
         anchors.horizontalCenter: parent.horizontalCenter
         style: Text.Sunken
-        font.underline: true
         font.bold: true
         font.pointSize: 20
     }

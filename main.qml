@@ -45,6 +45,7 @@ ApplicationWindow {
 
     Counter {
         id: counter
+        timeout: 50
         onFinished: {
             console.debug("FINISHED");
             show();

@@ -40,7 +40,7 @@ Item {
         id: select_file
         x: 379
         color: "#0c7818"
-        text: "File"
+        text: "Chose file"
         font.pointSize: 20
         anchors.top: parent.top
         anchors.topMargin: 10
@@ -57,21 +57,22 @@ Item {
 
     Label {
         id: file_label
-        text: qsTr("File: ")
+        height: 40
+        text: qsTr("File:")
+        verticalAlignment: Text.AlignVCenter
         anchors.left: parent.left
         anchors.leftMargin: 10
         anchors.top: select_file.bottom
         anchors.topMargin: 10
-        font.pointSize: 40
+        font.pointSize: 34
     }
 
     TextField {
         id: file_text
         y: 228
-        width: 409
         height: 40
         anchors.right: select.left
-        anchors.rightMargin: 309
+        anchors.rightMargin: 10
         anchors.verticalCenter: file_label.verticalCenter
         anchors.left: file_label.right
         anchors.leftMargin: 10
@@ -80,8 +81,9 @@ Item {
 
     Button {
         id: select
-        x: 437
+        x: 545
         y: 71
+        height: 40
         text: qsTr("Select...")
         anchors.verticalCenter: file_label.verticalCenter
         anchors.right: parent.right

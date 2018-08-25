@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QSet>
 #include <QStringList>
+#include <QTimer>
 #include <atomic>
 
 #include "core/statistics.h"
@@ -14,11 +15,14 @@ class Counter : public QObject
 public:
     explicit Counter(QObject *parent = 0);
 
+    Q_PROPERTY(int timeout READ timeout WRITE setTimeout)
     Q_PROPERTY(int lines READ lines NOTIFY linesChanged)
     Q_PROPERTY(int words READ words NOTIFY wordsChanged)
     Q_PROPERTY(QString uniqueWord READ uniqueWord NOTIFY uniqueWordChanged)
     Q_PROPERTY(QStringList dict READ dict)
 
+    Q_INVOKABLE int timeout() const;
+    Q_INVOKABLE void setTimeout(int value);
     Q_INVOKABLE int lines() const;
     Q_INVOKABLE int words() const;
     Q_INVOKABLE QString uniqueWord() const;
@@ -39,6 +43,7 @@ private:
     void handle(const QString& filename);
     Statistics statistics_;
     std::atomic<bool> is_cancelled;
+    QTimer updater_;
 };
 
 #endif // COUNTER_H

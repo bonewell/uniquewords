@@ -5,12 +5,30 @@
 
 Counter::Counter(QObject *parent)
     : QObject(parent),
-      is_cancelled(false)
+      is_cancelled(false),
+      updater_(parent)
 {
+    setTimeout(300);  // default value
+    connect(&updater_, &QTimer::timeout, this, &Counter::linesChanged);
+    connect(&updater_, &QTimer::timeout, this, &Counter::wordsChanged);
+    connect(&updater_, &QTimer::timeout, this, &Counter::uniqueWordChanged);
+    connect(this, &Counter::finished, &updater_, &QTimer::stop);
+    connect(this, &Counter::cancelled, &updater_, &QTimer::stop);
+}
+
+int Counter::timeout() const
+{
+    return updater_.interval();
+}
+
+void Counter::setTimeout(int value)
+{
+    updater_.setInterval(value);
 }
 
 void Counter::run(const QString& filename)
 {
+    updater_.start();
     QtConcurrent::run(this, &Counter::handle, filename);
 }
 
@@ -22,13 +40,11 @@ void Counter::stop()
 void Counter::handle(const QString& filename)
 {
     QFile file(QUrl(filename).toLocalFile());
-    if (file.open(QFile::ReadOnly)) {
-        while (!file.atEnd() && !is_cancelled) {
-            auto line = QString(file.readLine());
+    if (file.open(QFile::ReadOnly | QFile::Text)) {
+        QTextStream in(&file);
+        while (!in.atEnd() && !is_cancelled) {
+            auto line = in.readLine();
             statistics_.analyze(line.toLower());
-            emit linesChanged();
-            emit wordsChanged();
-            emit uniqueWordChanged();
         }
         file.close();
         if (is_cancelled) {
