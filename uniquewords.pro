@@ -2,9 +2,9 @@ TEMPLATE = app
 
 QT += qml quick widgets
 
-SOURCES += main.cpp counter.cpp
+SOURCES += main.cpp counter.cpp core/statistics.cpp
 
-HEADERS += counter.h
+HEADERS += counter.h core/statistics.h
 
 RESOURCES += qml.qrc
 

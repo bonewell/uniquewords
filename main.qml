@@ -29,13 +29,7 @@ ApplicationWindow {
         lines: counter.lines
         words: counter.words
         uniqueWord: counter.uniqueWord
-
-        back.onClicked: {
-            counter.stop();
-            selectFile.visible = true;
-            visible = false;
-        }
-
+        stop.onClicked: counter.stop();
         exit.onClicked: {
             counter.stop();
             Qt.quit();
@@ -51,9 +45,16 @@ ApplicationWindow {
 
     Counter {
         id: counter
-        discrete: 5
+        timeout: 50
         onFinished: {
             console.debug("FINISHED");
+            show();
+        }
+        onCancelled: {
+            console.debug("CANCELLED");
+            show();
+        }
+        function show() {
             result.lines = lines
             result.words = words
             result.dictionary = dict

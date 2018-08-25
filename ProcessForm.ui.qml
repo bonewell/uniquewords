@@ -8,16 +8,16 @@ Item {
     height: 480
 
     property alias exit: exit
-    property alias back: back
+    property alias stop: stop
     property alias lines: lines.text
     property alias words: words.text
     property alias uniqueWord: unique_word.text
 
     Button {
-        id: back
+        id: stop
         x: 210
         y: 435
-        text: qsTr("Back")
+        text: qsTr("Stop")
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 8
         anchors.right: parent.right
@@ -48,8 +48,8 @@ Item {
     }
 
     Label {
-        id: lines_label
-        text: qsTr("Lines:")
+        id: number_lines_label
+        text: qsTr("Number of lines:")
         anchors.left: parent.left
         font.pointSize: 40
         textFormat: Text.AutoText
@@ -59,13 +59,13 @@ Item {
     }
 
     Label {
-        id: words_label
+        id: number_unique_words_label
         x: 4
         y: 4
-        text: qsTr("Unique words:")
+        text: qsTr("Number of unique words:")
         anchors.left: parent.left
         font.pointSize: 40
-        anchors.top: lines_label.bottom
+        anchors.top: number_lines_label.bottom
         anchors.leftMargin: 10
         anchors.topMargin: 10
     }
@@ -103,7 +103,7 @@ Item {
         anchors.rightMargin: 10
         anchors.leftMargin: 10
         anchors.bottomMargin: 10
-        anchors.top: words_label.bottom
+        anchors.top: number_unique_words_label.bottom
         anchors.right: parent.right
         anchors.bottom: exit.top
         anchors.left: parent.left
